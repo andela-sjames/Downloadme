@@ -15,7 +15,7 @@ class SetupModelInstanceTestCase(APITestCase):
         self.user = User(first_name='usera', last_name='cool', username='my_user',
                         password='123456', is_staff=True)
 
-        self.download = Download(person=self.user, file_name='tthe.pdf', time_of_download=time.strptime("21 May 17", "%d %b %y"))
+        self.download = Download(person=self.user, file_name='the.pdf')
 
 
 class UserDownloadTestCase(SetupModelInstanceTestCase):
@@ -25,12 +25,12 @@ class UserDownloadTestCase(SetupModelInstanceTestCase):
          url = reverse('api_downloads')
          response = self.client.get(url)
 
-         self.asserEqual(status.is_successs(response.status_code))
-         self.asserEqual(response.status_code, status.HTTP_200_OK)
+         self.assertTrue(status.is_success(response.status_code))
+         self.assertEqual(response.status_code, status.HTTP_200_OK)
+         
+     def test_user_can_be_retrieved(self):
 
-
-    def test_user_can_be_retrieved(self):
         url = reverse('api_downloads')
         response = self.client.get(url)
 
-        self.asserEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
